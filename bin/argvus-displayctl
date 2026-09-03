@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+# Public command wrapper for ARGVUS display management.
+
+set -u
+
+SYSTEM_CONFIG="${ARGVUS_SYSTEM_CONFIG:-/usr/share/argvus}"
+SCRIPT="${ARGVUS_DISPLAY_SCRIPT:-$SYSTEM_CONFIG/scripts/argvus/monitor-switch.sh}"
+
+if [ ! -f "$SCRIPT" ]; then
+  printf 'argvus-displayctl: display script not found: %s\n' "$SCRIPT" >&2
+  exit 78
+fi
+
+exec sh "$SCRIPT" "$@"

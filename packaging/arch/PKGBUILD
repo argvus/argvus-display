@@ -1,0 +1,25 @@
+# Maintainer: William C. Canin
+pkgname=argvus-display
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Display and monitor layout integration for the ARGVUS desktop."
+arch=('any')
+url="https://github.com/argvus/argvus-display"
+license=('GPL-3.0-only')
+depends=(
+  'argvus-session'
+  'hyprland'
+  'nwg-displays'
+  'python'
+)
+optdepends=(
+  'libnotify: desktop notification after applying an nwg-displays layout'
+)
+options=('!debug')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}"
+  make DESTDIR="${pkgdir}" PREFIX=/usr install
+}
