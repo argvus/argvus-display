@@ -1,7 +1,7 @@
 # Maintainer: William C. Canin
 pkgname=argvus-display
 pkgver=0.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Display and monitor layout integration for the ARGVUS desktop."
 arch=('any')
 url="https://gitlab.com/argvus/argvus-display"

@@ -13,7 +13,7 @@
 # ever created on the real user config.
 #
 # Usage: nwg-displays-adapter.sh [--nwg-args...]
-# shellcheck disable=SC1090,SC1091,SC2034
+# shellcheck disable=SC1090,SC1091,SC2034,SC2329
 
 set -u
 
@@ -39,6 +39,55 @@ have() {
   command -v "$1" >/dev/null 2>&1
 }
 
+runtime_apply_monitors_conf() {
+  _conf="$1"
+  [ -f "$_conf" ] || return 0
+  have hyprctl || return 0
+
+  while IFS= read -r _line || [ -n "$_line" ]; do
+    _line="$(printf '%s' "$_line" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//; s/#.*//')"
+    [ -n "$_line" ] || continue
+
+    case "$_line" in
+      monitor=*) _arg="${_line#monitor=}" ;;
+      "monitor = "*) _arg="${_line#monitor = }" ;;
+      *) continue ;;
+    esac
+
+    _arg="$(printf '%s' "$_arg" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
+    [ -n "$_arg" ] || continue
+    hyprctl keyword monitor "$_arg" >/dev/null 2>&1 || true
+  done < "$_conf"
+}
+
+monitors_conf_fingerprint() {
+  _conf="$1"
+  [ -f "$_conf" ] || {
+    printf 'missing\n'
+    return 0
+  }
+
+  if command -v cksum >/dev/null 2>&1; then
+    cksum "$_conf" 2>/dev/null || printf 'unreadable\n'
+  else
+    wc -c "$_conf" 2>/dev/null || printf 'unreadable\n'
+  fi
+}
+
+watch_staged_monitors() {
+  _conf="$1"
+  _last=""
+
+  while [ -d "$STAGING_HYPR" ]; do
+    _current="$(monitors_conf_fingerprint "$_conf")"
+    if [ "$_current" != "$_last" ]; then
+      _last="$_current"
+      runtime_apply_monitors_conf "$_conf"
+    fi
+    sleep 1
+  done
+}
+
 have nwg-displays || {
   log_error "nwg-displays not found"
   exit 127
@@ -54,6 +103,17 @@ fi
 
 STAGING="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/argvus-nwg-displays"
 STAGING_HYPR="$STAGING/hypr"
+WATCH_PID=""
+
+cleanup() {
+  if [ -n "$WATCH_PID" ]; then
+    kill "$WATCH_PID" >/dev/null 2>&1 || true
+    wait "$WATCH_PID" 2>/dev/null || true
+  fi
+  rm -rf "$STAGING"
+}
+
+trap cleanup EXIT INT TERM
 
 rm -rf "$STAGING"
 mkdir -p "$STAGING_HYPR"
@@ -70,8 +130,14 @@ export XDG_CONFIG_HOME="$STAGING"
 export ARGVUS_DISPLAY_LUA_OK=1
 
 log_info "Launching nwg-displays with isolated XDG_CONFIG_HOME=$STAGING"
+watch_staged_monitors "$STAGING_HYPR/monitors.conf" &
+WATCH_PID="$!"
 nwg-displays "$@"
 _status=$?
+
+kill "$WATCH_PID" >/dev/null 2>&1 || true
+wait "$WATCH_PID" 2>/dev/null || true
+WATCH_PID=""
 
 if [ -n "$SAVED_XDG_CONFIG_HOME" ]; then
   export XDG_CONFIG_HOME="$SAVED_XDG_CONFIG_HOME"
@@ -142,9 +208,7 @@ if [ "$_status" -eq 0 ]; then
             scale)   _fields="$_fields, scale = $_val" ;;
             refresh) : ;; # folded into mode=WxH@R below
             position)
-              _px="$(printf '%s' "$_val" | cut -d'x' -f1)"
-              _py="$(printf '%s' "$_val" | cut -d'x' -f2-)"
-              _fields="$_fields, x = $_px, y = $_py"
+              _fields="$_fields, position = \"$_val\""
               ;;
             rotation)
               case "$_val" in
@@ -177,11 +241,11 @@ if [ "$_status" -eq 0 ]; then
     log_info "Generated $GENERATED_MONITORS_LUA"
   fi
 
+  runtime_apply_monitors_conf "$STAGING_HYPR/monitors.conf"
+
   if command -v notify-send >/dev/null 2>&1; then
     notify-send "Displays" "Monitor layout saved via nwg-displays" >/dev/null 2>&1 || true
   fi
 fi
-
-rm -rf "$STAGING"
 
 exit "$_status"

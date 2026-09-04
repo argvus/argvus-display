@@ -286,9 +286,7 @@ write_lua() {
             : # refresh folded into mode=WxH@R below
             ;;
           position)
-            _px="$(printf '%s' "$_val" | cut -d'x' -f1)"
-            _py="$(printf '%s' "$_val" | cut -d'x' -f2-)"
-            _fields="$_fields, x = $_px, y = $_py"
+            _fields="$_fields, position = \"$_val\""
             ;;
           rotation)
             case "$_val" in
