@@ -27,6 +27,7 @@ install:
 uninstall:
 	$(RM) "$(DESTDIR)$(PREFIX)/bin/argvus-displayctl"
 	$(RM) "$(DESTDIR)$(PREFIX)/share/argvus/scripts/argvus/monitor-switch.sh"
+	$(RM) "$(DESTDIR)$(PREFIX)/share/argvus/scripts/argvus/nwg-displays-adapter.sh"
 	$(RM) "$(DESTDIR)$(PREFIX)/share/licenses/argvus-display/LICENSE"
 
 validate:
@@ -39,7 +40,8 @@ validate:
 	else \
 		echo "shellcheck not found; skipped"; \
 	fi; \
-	grep -q 'MONITORS_LUA=.*paths_config hypr/monitors.lua' config/scripts/argvus/monitor-switch.sh
+	grep -q 'GENERATED_MONITORS_LUA' config/scripts/argvus/monitor-switch.sh; \
+	test -f config/scripts/argvus/nwg-displays-adapter.sh
 	@echo "argvus-display validation ok"
 
 release-archive:
