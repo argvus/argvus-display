@@ -211,7 +211,7 @@ set_key() {
           return 1
           ;;
       esac
-      hyprctl dispatch dpms "$_value" "$_monitor" >/dev/null 2>&1
+      hyprctl dispatch "hl.dsp.dpms({ action = \"$_value\", monitor = \"$_monitor\" })" >/dev/null 2>&1
       persist_setting "$_monitor" "power" "$_value"
       ;;
     enabled)
@@ -340,7 +340,7 @@ apply_state() {
     _key="${_rest%%=*}"
     _val="${_rest#*=}"
     if [ "$_key" = "power" ] && [ "$_val" = "off" ]; then
-      hyprctl dispatch dpms off "$_monitor" >/dev/null 2>&1 || true
+      hyprctl dispatch "hl.dsp.dpms({ action = \"off\", monitor = \"$_monitor\" })" >/dev/null 2>&1 || true
     elif [ "$_key" = "enabled" ] && [ "$_val" = "false" ]; then
       hyprctl keyword monitor "$_monitor",disabled >/dev/null 2>&1 || true
     fi
