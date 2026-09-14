@@ -5,7 +5,7 @@ Display and monitor integration for the ARGVUS desktop.
 This package owns:
 
 - `argvus-displayctl`, the public display control command.
-- `/usr/share/argvus/scripts/argvus/monitor-switch.sh`, the compatibility path used by the current ARGVUS shell and session preparation scripts.
+- `/usr/share/argvus/display/sh/monitor-switch.sh`, the compatibility path used by the current ARGVUS shell and session preparation scripts.
 - Persisted monitor scale/DPI/power state in `~/.config/argvus/.monitors`.
 - Generated Hyprland monitor overrides in `~/.config/argvus/hypr/monitors.lua`.
 - Runtime application of `nwg-displays` output from `~/.config/hypr/monitors.conf`.
