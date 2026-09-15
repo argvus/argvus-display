@@ -5,9 +5,11 @@ set -u
 
 SYSTEM_CONFIG="${ARGVUS_SYSTEM_CONFIG:-/usr/share/argvus}"
 SCRIPT="${ARGVUS_DISPLAY_SCRIPT:-$SYSTEM_CONFIG/display/sh/monitor-switch.sh}"
+# shellcheck source=/usr/share/argvus/lib/i18n.sh
+. /usr/share/argvus/lib/i18n.sh
 
 if [ ! -f "$SCRIPT" ]; then
-  printf 'argvus-displayctl: display script not found: %s\n' "$SCRIPT" >&2
+  printf '%s\n' "$(argvus_tr display error.script_missing script="$SCRIPT")" >&2
   exit 78
 fi
 

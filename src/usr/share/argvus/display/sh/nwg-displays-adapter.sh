@@ -31,6 +31,8 @@ GENERATED_MONITORS_LUA="$GENERATED_DIR/monitors.lua"
 if [ -r "$ARGVUS_BOOTSTRAP" ]; then
   . "$ARGVUS_BOOTSTRAP"
 fi
+# shellcheck source=/usr/share/argvus/lib/i18n.sh
+. /usr/share/argvus/lib/i18n.sh
 
 log_info() { printf '[nwg-displays-adapter] %s\n' "$1"; }
 log_error() { printf '[nwg-displays-adapter] ERROR: %s\n' "$1" >&2; }
@@ -89,7 +91,7 @@ watch_staged_monitors() {
 }
 
 have nwg-displays || {
-  log_error "nwg-displays not found"
+  log_error "$(argvus_tr display error.nwg_missing)"
   exit 127
 }
 
@@ -97,7 +99,7 @@ Nwg_parse="${Nwg_parse:-$ARGVUS_SYSTEM_CONFIG/display/sh/nwg-monitors-parse.sh}"
 if [ -r "$Nwg_parse" ]; then
   . "$Nwg_parse"
 else
-  log_error "cannot source parser: $Nwg_parse"
+  log_error "$(argvus_tr display error.parser_missing parser="$Nwg_parse")"
   exit 127
 fi
 
@@ -129,7 +131,7 @@ export XDG_CONFIG_HOME="$STAGING"
 # nwg-displays reads workspace assignment by default; keep the session value.
 export ARGVUS_DISPLAY_LUA_OK=1
 
-log_info "Launching nwg-displays with isolated XDG_CONFIG_HOME=$STAGING"
+log_info "$(argvus_tr display adapter.launching config="$STAGING")"
 watch_staged_monitors "$STAGING_HYPR/monitors.conf" &
 WATCH_PID="$!"
 nwg-displays "$@"
@@ -238,13 +240,13 @@ if [ "$_status" -eq 0 ]; then
       done
       printf '%s\n' '-- End generated.'
     } > "$GENERATED_MONITORS_LUA"
-    log_info "Generated $GENERATED_MONITORS_LUA"
+    log_info "$(argvus_tr display adapter.generated path="$GENERATED_MONITORS_LUA")"
   fi
 
   runtime_apply_monitors_conf "$STAGING_HYPR/monitors.conf"
 
   if command -v notify-send >/dev/null 2>&1; then
-    notify-send "Displays" "Monitor layout saved via nwg-displays" >/dev/null 2>&1 || true
+    notify-send "$(argvus_tr display notification.title)" "$(argvus_tr display notification.layout_saved)" >/dev/null 2>&1 || true
   fi
 fi
 

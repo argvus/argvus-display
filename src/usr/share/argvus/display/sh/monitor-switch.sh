@@ -39,6 +39,8 @@ else
     notify-send "$1" "$2" >/dev/null 2>&1 || true
   }
 fi
+# shellcheck source=/usr/share/argvus/lib/i18n.sh
+. /usr/share/argvus/lib/i18n.sh
 
 STATE_DIR="${ARGVUS_CONFIG_HOME}/argvus"
 STATE_FILE="${ARGVUS_DISPLAY_STATE_FILE:-$STATE_DIR/.monitors}"
@@ -57,14 +59,14 @@ fi
 
 require_hyprctl() {
   have hyprctl || {
-    printf 'hyprctl not found\n' >&2
+    printf '%s\n' "$(argvus_tr display error.hyprctl_missing)" >&2
     return 127
   }
 }
 
 require_python() {
   have python3 || have python || {
-    printf 'python not found\n' >&2
+    printf '%s\n' "$(argvus_tr display error.python_missing)" >&2
     return 127
   }
 }
@@ -148,14 +150,14 @@ set_key() {
   _value="$3"
 
   monitor_exists "$_monitor" || {
-    printf 'Monitor not found: %s\n' "$_monitor" >&2
+    printf '%s\n' "$(argvus_tr display error.monitor_not_found monitor="$_monitor")" >&2
     return 1
   }
 
   case "$_key" in
     scale)
       is_number_in_range "$_value" 0.1 10 || {
-        printf 'Invalid scale: %s (use 0.1-10)\n' "$_value" >&2
+        printf '%s\n' "$(argvus_tr display error.invalid_scale value="$_value")" >&2
         return 1
       }
       hyprctl keyword monitor "$_monitor",preferred,auto,"$_value" >/dev/null 2>&1
@@ -166,7 +168,7 @@ set_key() {
       case "$_value" in
         [0-9]*x[0-9]*) ;;
         *)
-          printf 'Invalid resolution: %s (use WxH, e.g. 1920x1080)\n' "$_value" >&2
+          printf '%s\n' "$(argvus_tr display error.invalid_resolution value="$_value")" >&2
           return 1
           ;;
       esac
@@ -175,7 +177,7 @@ set_key() {
       ;;
     refresh)
       is_number_in_range "$_value" 1 2000 || {
-        printf 'Invalid refresh: %s (use 1-2000)\n' "$_value" >&2
+        printf '%s\n' "$(argvus_tr display error.invalid_refresh value="$_value")" >&2
         return 1
       }
       persist_setting "$_monitor" "refresh" "$_value"
@@ -185,7 +187,7 @@ set_key() {
       case "$_value" in
         [0-9]*x[0-9]*) ;;
         *)
-          printf 'Invalid position: %s (use XxY, e.g. 0x0)\n' "$_value" >&2
+          printf '%s\n' "$(argvus_tr display error.invalid_position value="$_value")" >&2
           return 1
           ;;
       esac
@@ -196,7 +198,7 @@ set_key() {
       case "$_value" in
         0|90|180|270) ;;
         *)
-          printf 'Invalid rotation: %s (use 0|90|180|270)\n' "$_value" >&2
+          printf '%s\n' "$(argvus_tr display error.invalid_rotation value="$_value")" >&2
           return 1
           ;;
       esac
@@ -207,7 +209,7 @@ set_key() {
       case "$_value" in
         on|off) ;;
         *)
-          printf 'Invalid power: %s (use on|off)\n' "$_value" >&2
+          printf '%s\n' "$(argvus_tr display error.invalid_power value="$_value")" >&2
           return 1
           ;;
       esac
@@ -218,7 +220,7 @@ set_key() {
       case "$_value" in
         true|false) ;;
         *)
-          printf 'Invalid enabled: %s (use true|false)\n' "$_value" >&2
+          printf '%s\n' "$(argvus_tr display error.invalid_enabled value="$_value")" >&2
           return 1
           ;;
       esac
@@ -226,12 +228,12 @@ set_key() {
       write_lua
       ;;
     *)
-      printf 'Invalid key: %s (scale|resolution|refresh|position|rotation|power|enabled)\n' "$_key" >&2
+      printf '%s\n' "$(argvus_tr display error.invalid_key key="$_key")" >&2
       return 1
       ;;
   esac
 
-  printf 'Applied %s=%s on %s\n' "$_key" "$_value" "$_monitor"
+  printf '%s\n' "$(argvus_tr display status.applied key="$_key" value="$_value" monitor="$_monitor")"
 }
 
 persist_setting() {
@@ -410,7 +412,7 @@ migrate_nwg_state() {
   if [ -s "$_tmp_state_nwg" ]; then
     mv "$_tmp_state_nwg" "$STATE_FILE"
     write_lua
-    notify_send "Displays" "Migrated nwg-displays config to ARGVUS" 2>/dev/null || true
+    notify_send "$(argvus_tr display notification.title)" "$(argvus_tr display notification.migrated)" 2>/dev/null || true
   else
     rm -f "$_tmp_state_nwg"
   fi
@@ -438,7 +440,7 @@ apply_nwg_conf() {
     esac
   done < "$_legacy_monitors"
 
-  notify_send "Displays" "Legacy layout from nwg-displays applied" 2>/dev/null || true
+  notify_send "$(argvus_tr display notification.title)" "$(argvus_tr display notification.legacy_applied)" 2>/dev/null || true
 }
 
 open_settings() {
@@ -448,7 +450,7 @@ open_settings() {
   fi
 
   have nwg-displays || {
-    printf 'nwg-displays not found\n' >&2
+    printf '%s\n' "$(argvus_tr display error.nwg_missing)" >&2
     return 127
   }
 
@@ -468,7 +470,7 @@ case "${1:-}" in
     ;;
   --list-modes)
     [ -n "${2:-}" ] || {
-      printf 'Missing monitor\n' >&2
+      printf '%s\n' "$(argvus_tr display error.missing_monitor)" >&2
       exit 1
     }
     require_hyprctl || exit $?
@@ -496,7 +498,7 @@ for m in data:
     ;;
   --set)
     [ -n "${2:-}" ] && [ -n "${3:-}" ] && [ -n "${4:-}" ] || {
-      printf 'Missing monitor/key/value\n' >&2
+      printf '%s\n' "$(argvus_tr display error.missing_monitor_key_value)" >&2
       exit 1
     }
     set_key "$2" "$3" "$4"
@@ -521,7 +523,7 @@ for m in data:
     open_settings "$@"
     ;;
   *)
-    printf 'Usage: monitor-switch.sh [--status|--list-modes <monitor>|--set <monitor> <key> <value>|--apply|--session-prepare|--session-reload|--settings]\n' >&2
-    printf 'Keys: scale (0.1-10), resolution (WxH), refresh (Hz), position (XxY), rotation (0|90|180|270), power (on|off)\n' >&2
+    printf '%s\n' "$(argvus_tr display cli.usage)" >&2
+    printf '%s\n' "$(argvus_tr display cli.keys)" >&2
     ;;
 esac
