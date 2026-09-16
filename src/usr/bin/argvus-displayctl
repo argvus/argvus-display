@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
 # Public command wrapper for ARGVUS display management.
+# shellcheck disable=SC1091
 
 set -u
 

@@ -2,6 +2,9 @@
 
 Display and monitor integration for the ARGVUS desktop.
 
+[![CI](https://github.com/argvus/argvus-display/actions/workflows/ci.yml/badge.svg)](https://github.com/argvus/argvus-display/actions/workflows/ci.yml)
+[![Release](https://github.com/argvus/argvus-display/actions/workflows/release.yml/badge.svg)](https://github.com/argvus/argvus-display/actions/workflows/release.yml)
+
 This package owns:
 
 - `argvus-displayctl`, the public display control command.
@@ -29,3 +32,27 @@ argvus-displayctl --settings
 
 `--settings` launches `nwg-displays`; after it exits, display state is reapplied
 through `argvus-sessionctl reload` when available.
+
+## Build and install
+
+On Arch Linux or a compatible distribution:
+
+```sh
+make validate
+make build
+make install
+```
+
+`make build` creates the source archive in `build/artifacts/` and the package
+in `build/dist/`. See [packaging/arch/README.md](packaging/arch/README.md) for
+local and release packaging details.
+
+## Documentation
+
+- [DEVELOPMENT.md](DEVELOPMENT.md) — layout, checks, and releases
+- [CONTRIBUTING.md](CONTRIBUTING.md) — contribution workflow
+- [SECURITY.md](SECURITY.md) — private vulnerability reports
+
+## License
+
+SPDX: `GPL-3.0-only`. See [LICENSE](LICENSE).
