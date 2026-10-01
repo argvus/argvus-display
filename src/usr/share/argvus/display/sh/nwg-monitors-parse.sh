@@ -3,7 +3,7 @@
 #
 # This is sourced by both nwg-displays-adapter.sh and monitor-switch.sh so the
 # two always agree on how nwg-displays' output is converted into the
-# single-source ~/.config/argvus/.monitors state file.
+# single-source ~/.config/argvus/data/.monitors state file.
 #
 # nwg-displays writes (settings_applier.py):
 #   monitor=NAME,WxH@refresh,XxY,scale

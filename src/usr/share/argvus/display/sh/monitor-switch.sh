@@ -42,9 +42,9 @@ fi
 # shellcheck source=/usr/share/argvus/lib/i18n.sh
 . /usr/share/argvus/lib/i18n.sh
 
-STATE_DIR="${ARGVUS_CONFIG_HOME}/argvus"
+STATE_DIR="${ARGVUS_CONFIG_HOME}/argvus/data"
 STATE_FILE="${ARGVUS_DISPLAY_STATE_FILE:-$STATE_DIR/.monitors}"
-GENERATED_DIR="${ARGVUS_CONFIG_HOME}/argvus/generated/hypr"
+GENERATED_DIR="${ARGVUS_CONFIG_HOME}/argvus/data/generated/hypr"
 GENERATED_MONITORS_LUA="$GENERATED_DIR/monitors.lua"
 NWG_ADAPTER="${ARGVUS_SYSTEM_CONFIG}/display/sh/nwg-displays-adapter.sh"
 
@@ -256,6 +256,37 @@ persist_setting() {
 
   printf '%s.%s=%s\n' "$_monitor" "$_key" "$_value" >> "$_tmp"
   mv "$_tmp" "$STATE_FILE"
+  persist_canonical_setting "$_monitor" "$_key" "$_value"
+}
+
+# Keep the legacy marker for older Hyprland consumers, but make config.json
+# authoritative for Control Center and every subsequent projection.
+persist_canonical_setting() {
+  command -v argvus-config >/dev/null 2>&1 || return 0
+  command -v jq >/dev/null 2>&1 || return 0
+  _display_config="$(argvus-config get /displays --effective 2>/dev/null || true)"
+  [ -n "$_display_config" ] || return 0
+  case "$2" in
+    scale)
+      _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].scale = ($v | tonumber)')" || return 0 ;;
+    resolution)
+      _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].mode = $v')" || return 0 ;;
+    refresh)
+      _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].mode = (((.monitors[$m].mode // "preferred") | sub("@.*$"; "")) + "@" + $v)')" || return 0 ;;
+    position)
+      _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].position = $v')" || return 0 ;;
+    rotation)
+      _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].transform = ($v | tonumber)')" || return 0 ;;
+    power)
+      _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].disabled = ($v == "off")')" || return 0 ;;
+    enabled)
+      _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].disabled = ($v != "true")')" || return 0 ;;
+    *) return 0 ;;
+  esac
+  argvus-config set /displays "$_display_config" >/dev/null 2>&1 || return 0
+  if [ "${ARGVUS_CONFIG_SERVICE:-0}" != 1 ] && [ "${ARGVUS_PROJECTING:-0}" != 1 ]; then
+    systemctl --user reload argvus-config.service >/dev/null 2>&1 || true
+  fi
 }
 
 write_lua() {

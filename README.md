@@ -9,8 +9,8 @@ This package owns:
 
 - `argvus-displayctl`, the public display control command.
 - `/usr/share/argvus/display/sh/monitor-switch.sh`, the compatibility path used by the current ARGVUS shell and session preparation scripts.
-- Persisted monitor scale/DPI/power state in `~/.config/argvus/.monitors`.
-- Generated Hyprland monitor overrides in `~/.config/argvus/hypr/monitors.lua`.
+- Persisted monitor scale/DPI/power state in `~/.config/argvus/data/.monitors`.
+- Generated Hyprland monitor overrides in `~/.config/argvus/data/generated/hypr/monitors.lua`.
 - Runtime application of `nwg-displays` output from `~/.config/hypr/monitors.conf`.
 
 The session manager remains the runtime owner. Current `argvus-sessionctl prepare`

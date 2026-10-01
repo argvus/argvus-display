@@ -8,7 +8,7 @@
 # config, and pointing XDG_CONFIG_HOME at it for the duration of the process.
 #
 # After nwg-displays exits we absorb its output: monitors.conf is parsed into
-# ARGVUS monitor state (~/.config/argvus/.monitors, the single source) and the
+# ARGVUS monitor state (~/.config/argvus/data/.monitors, the single source) and the
 # generated monitors.lua is regenerated from that state. No ~/.config/hypr is
 # ever created on the real user config.
 #
@@ -23,9 +23,9 @@ ARGVUS_SYSTEM_CONFIG="${ARGVUS_SYSTEM_CONFIG:-/usr/share/argvus}"
 ARGVUS_CONFIG_HOME="${ARGVUS_CONFIG_HOME:-${XDG_CONFIG_HOME:-$HOME/.config}}"
 ARGVUS_BOOTSTRAP="${ARGVUS_BOOTSTRAP:-$ARGVUS_SYSTEM_CONFIG/session/sh/bootstrap.sh}"
 
-STATE_DIR="${ARGVUS_CONFIG_HOME}/argvus"
+STATE_DIR="${ARGVUS_CONFIG_HOME}/argvus/data"
 STATE_FILE="${ARGVUS_DISPLAY_STATE_FILE:-$STATE_DIR/.monitors}"
-GENERATED_DIR="${ARGVUS_CONFIG_HOME}/argvus/generated/hypr"
+GENERATED_DIR="${ARGVUS_CONFIG_HOME}/argvus/data/generated/hypr"
 GENERATED_MONITORS_LUA="$GENERATED_DIR/monitors.lua"
 
 if [ -r "$ARGVUS_BOOTSTRAP" ]; then
