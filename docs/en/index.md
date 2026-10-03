@@ -12,7 +12,7 @@ argvus-displayctl --apply
 argvus-displayctl --settings
 ```
 
-The helper also supports `--set <monitor> <key> <value>` and `--apply-nwg`. Generated monitor overrides are part of the ARGVUS configuration state; see [configuration files](../../reference/configuration-files/).
+The helper also supports `--set <monitor> <key> <value>` and `--apply-nwg`. Generated monitor overrides are part of the ARGVUS configuration state; see [configuration files](/docs/reference/configuration-files/).
 
 In the Control Center, open **Displays** or search for a monitor. The available settings are capability-dependent and can include resolution, refresh rate, scale, position, orientation, primary display, VRR and HDR. A setting is not shown as supported merely because the monitor model exists in a generic list; the active compositor and monitor backend must report it.
 

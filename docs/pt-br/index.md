@@ -13,7 +13,7 @@ argvus-displayctl --apply
 argvus-displayctl --settings
 ```
 
-Também há `--set <monitor> <key> <value>` e `--apply-nwg`. Consulte [arquivos de configuração](../../reference/configuration-files/).
+Também há `--set <monitor> <key> <value>` e `--apply-nwg`. Consulte [arquivos de configuração](/pt/docs/reference/configuration-files/).
 
 No Control Center, abra **Displays** ou busque por um monitor. As configurações disponíveis dependem das capacidades e podem incluir resolução, taxa de atualização, escala, posição, orientação, display principal, VRR e HDR. Um controle só aparece quando a sessão ativa e o backend do monitor informam que ele pode ser aplicado.
 
