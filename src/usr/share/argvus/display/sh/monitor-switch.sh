@@ -262,9 +262,9 @@ persist_setting() {
 # Keep the legacy marker for older Hyprland consumers, but make config.json
 # authoritative for Control Center and every subsequent projection.
 persist_canonical_setting() {
-  command -v argvus-config >/dev/null 2>&1 || return 0
+  command -v argvus >/dev/null 2>&1 || return 0
   command -v jq >/dev/null 2>&1 || return 0
-  _display_config="$(argvus-config get /displays --effective 2>/dev/null || true)"
+  _display_config="$(argvus config get /displays --effective 2>/dev/null || true)"
   [ -n "$_display_config" ] || return 0
   case "$2" in
     scale)
@@ -283,7 +283,7 @@ persist_canonical_setting() {
       _display_config="$(printf '%s' "$_display_config" | jq -c --arg m "$1" --arg v "$3" '.monitors[$m] = (.monitors[$m] // {}) | .monitors[$m].disabled = ($v != "true")')" || return 0 ;;
     *) return 0 ;;
   esac
-  argvus-config set /displays "$_display_config" >/dev/null 2>&1 || return 0
+  argvus config set /displays "$_display_config" >/dev/null 2>&1 || return 0
   if [ "${ARGVUS_CONFIG_SERVICE:-0}" != 1 ] && [ "${ARGVUS_PROJECTING:-0}" != 1 ]; then
     systemctl --user reload argvus-config.service >/dev/null 2>&1 || true
   fi

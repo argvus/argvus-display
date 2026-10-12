@@ -41,7 +41,7 @@ arch_package_display_payload() {
 	local source_root="${srcdir}/${pkgname}-${pkgver}"
 
 	install -Dm755 "${source_root}/src/usr/bin/argvus-displayctl" \
-		"${pkgdir}/usr/bin/argvus-displayctl"
+		"${pkgdir}/usr/lib/argvus/commands/argvus-displayctl"
 	install -d "${pkgdir}/usr/share/argvus/display"
 	cp -a "${source_root}/src/usr/share/argvus/display/." \
 		"${pkgdir}/usr/share/argvus/display/"
