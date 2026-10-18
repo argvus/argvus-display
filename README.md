@@ -8,14 +8,14 @@ Display and monitor integration for the ARGVUS desktop.
 This package owns:
 
 - `argvus displayctl`, the public display control command.
-- `/usr/share/argvus/display/sh/monitor-switch.sh`, the compatibility path used by the current ARGVUS shell and session preparation scripts.
-- Persisted monitor scale/DPI/power state in `~/.config/argvus/data/.monitors`.
-- Generated Hyprland monitor overrides in `~/.config/argvus/data/generated/hypr/monitors.lua`.
+- `argvus-displayctl` maps the older flags to argvus-config's `display` command (`argvus config display status|list-modes|set|apply|apply-nwg|migrate-nwg`). The nwg-displays editor (`--settings`) stays a shell adapter.
+- Legacy monitor state in `~/.config/argvus/data/.monitors`, read only to migrate an installation that predates `/displays`. It is no longer written.
+- Canonical monitor layout in `/displays` of `config.json`. `argvus-config` projects the Hyprland overrides in `~/.config/argvus/data/generated/hypr/monitors.lua` from it; this package does not write that file.
 - Runtime application of `nwg-displays` output from `~/.config/hypr/monitors.conf`.
 
 The session manager remains the runtime owner. Current `argvus sessionctl prepare`
-and `argvus sessionctl reload` flows reach this package through the existing
-`hypr-init.sh` calls in the ARGVUS configuration package:
+and `argvus sessionctl reload` flows reach this package through
+`argvus-config session-prepare` and `argvus-config session-reload-config`:
 
 - prepare: `argvus displayctl --session-prepare`
 - reload: `argvus displayctl --session-reload`
