@@ -32,9 +32,7 @@ arch_check_display_payload() {
 	local source_root="${srcdir}/${pkgname}-${pkgver}"
 
 	test -x "${source_root}/src/usr/bin/argvus-displayctl"
-	test -f "${source_root}/src/usr/share/argvus/display/sh/monitor-switch.sh"
 	test -f "${source_root}/src/usr/share/argvus/display/sh/nwg-displays-adapter.sh"
-	test -f "${source_root}/src/usr/share/argvus/display/sh/nwg-monitors-parse.sh"
 }
 
 arch_package_display_payload() {

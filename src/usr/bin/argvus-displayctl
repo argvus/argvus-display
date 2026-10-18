@@ -1,17 +1,25 @@
 #!/usr/bin/env sh
-# Public command wrapper for ARGVUS display management.
-# shellcheck disable=SC1091
+# Public command for ARGVUS display management. The display logic lives in
+# argvus-config's `display` command; this maps the older flag names to its
+# subcommands. `--settings` opens the nwg-displays editor through its adapter.
 
 set -u
 
 SYSTEM_CONFIG="${ARGVUS_SYSTEM_CONFIG:-/usr/share/argvus}"
-SCRIPT="${ARGVUS_DISPLAY_SCRIPT:-$SYSTEM_CONFIG/display/sh/monitor-switch.sh}"
-# shellcheck source=/usr/share/argvus/lib/i18n.sh
-. /usr/share/argvus/lib/i18n.sh
+COMMANDS_DIR="${ARGVUS_COMMANDS_DIR:-/usr/lib/argvus/commands}"
 
-if [ ! -f "$SCRIPT" ]; then
-  printf '%s\n' "$(argvus_tr display error.script_missing script="$SCRIPT")" >&2
-  exit 78
-fi
+case "${1:-}" in
+  --settings)
+    shift
+    exec sh "$SYSTEM_CONFIG/display/sh/nwg-displays-adapter.sh" "$@"
+    ;;
+  --status) shift; set -- status "$@" ;;
+  --list-modes) shift; set -- list-modes "$@" ;;
+  --set) shift; set -- set "$@" ;;
+  --apply|--session-reload) set -- apply ;;
+  --session-prepare) set -- session-prepare ;;
+  --apply-nwg) set -- apply-nwg ;;
+  --migrate-nwg) set -- migrate-nwg ;;
+esac
 
-exec sh "$SCRIPT" "$@"
+exec "$COMMANDS_DIR/argvus-config" display "$@"

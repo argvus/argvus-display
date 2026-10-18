@@ -1,8 +1,8 @@
 # shellcheck shell=sh
 # Shared parser for nwg-displays monitors.conf -> ARGVUS monitor state.
 #
-# This is sourced by both nwg-displays-adapter.sh and monitor-switch.sh so the
-# two always agree on how nwg-displays' output is converted into the
+# This is sourced by nwg-displays-adapter.sh and must agree with the Rust port
+# in argvus-config (display apply-nwg), so both read the same on how nwg-displays' output is converted into the
 # single-source ~/.config/argvus/data/.monitors state file.
 #
 # nwg-displays writes (settings_applier.py):
