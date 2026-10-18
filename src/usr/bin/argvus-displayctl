@@ -22,4 +22,4 @@ case "${1:-}" in
   --migrate-nwg) set -- migrate-nwg ;;
 esac
 
-exec "$COMMANDS_DIR/argvus-config" display "$@"
+exec argvus config display "$@"
