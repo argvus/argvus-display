@@ -1,7 +1,6 @@
 ---
 title: Displays
 description: Configure monitores e layouts.
-slug: pt/0.4.0/docs/user-guide/hardware/displays
 ---
 
 `argvus-display` fornece `argvus displayctl` e integra layouts salvos ao Hyprland:
