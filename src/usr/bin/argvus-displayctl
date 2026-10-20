@@ -6,7 +6,6 @@
 set -u
 
 SYSTEM_CONFIG="${ARGVUS_SYSTEM_CONFIG:-/usr/share/argvus}"
-COMMANDS_DIR="${ARGVUS_COMMANDS_DIR:-/usr/lib/argvus/commands}"
 
 case "${1:-}" in
   --settings)
