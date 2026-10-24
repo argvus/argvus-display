@@ -4,6 +4,13 @@ Display and monitor integration for the ARGVUS desktop.
 
 [![CI](https://github.com/argvus/argvus-display/actions/workflows/ci.yml/badge.svg)](https://github.com/argvus/argvus-display/actions/workflows/ci.yml)
 [![Release](https://github.com/argvus/argvus-display/actions/workflows/release.yml/badge.svg)](https://github.com/argvus/argvus-display/actions/workflows/release.yml)
+[![License](https://img.shields.io/github/license/argvus/argvus-display)](./LICENSE)
+[![Language: Shell](https://img.shields.io/badge/Shell-POSIX-4EAA25?logo=gnubash&logoColor=white)](https://www.gnu.org/software/bash/)
+[![Platform: Arch Linux | Wayland](https://img.shields.io/badge/platform-Arch%20Linux%20%7C%20Wayland-1793D1?logo=archlinux&logoColor=white)](https://archlinux.org/)
+[![Pull requests](https://img.shields.io/github/issues-pr/argvus/argvus-display)](https://github.com/argvus/argvus-display/pulls)
+[![Issues](https://img.shields.io/github/issues/argvus/argvus-display)](https://github.com/argvus/argvus-display/issues)
+[![Last commit](https://img.shields.io/github/last-commit/argvus/argvus-display)](https://github.com/argvus/argvus-display/commits/main)
+[![Docs](https://img.shields.io/badge/docs-project-blue)](./docs/)
 
 This package owns:
 
