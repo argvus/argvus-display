@@ -50,8 +50,10 @@ local and release packaging details.
 ## Documentation
 
 - [DEVELOPMENT.md](DEVELOPMENT.md) — layout, checks, and releases
-- [CONTRIBUTING.md](CONTRIBUTING.md) — contribution workflow
-- [SECURITY.md](SECURITY.md) — private vulnerability reports
+- [CONTRIBUTING.md](https://github.com/argvus/.github/blob/main/CONTRIBUTING.md) — contribution workflow
+- [SECURITY.md](https://github.com/argvus/.github/blob/main/SECURITY.md) — private vulnerability reports
+- [Code of Conduct](https://github.com/argvus/.github/blob/main/policies/CODE_OF_CONDUCT.md) — community standards
+- [AI usage policy](https://github.com/argvus/.github/blob/main/policies/IA_USAGE.md) — rules for AI-assisted contributions
 
 ## License
 
