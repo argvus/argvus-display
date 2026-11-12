@@ -10,7 +10,7 @@ argvus displayctl --list-modes <monitor>
 argvus displayctl --apply
 argvus displayctl --settings
 ```
-该助手还支持 `--set <monitor> <key> <value>` 和 `--apply-nwg`。生成的监视器覆盖是 ARGVUS 配置状态的一部分；请参见 [configuration files](/docs/reference/configuration-files/)]。
+该助手还支持 `--set <monitor> <key> <value>` 和 `--apply-nwg`。生成的监视器覆盖是 ARGVUS 配置状态的一部分；请参见 [configuration files](/docs/reference/configuration-files/)。
 
 在控制中心中，打开 **显示器** 或搜索监视器。可用的设置取决于功能，可能包括分辨率、刷新率、比例、位置、方向、主显示器、VRR 和 HDR。某个设置仅因监视器型号出现在通用列表中并不意味着被支持；必须由活动合成器和监视器后端报告。
 

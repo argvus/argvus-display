@@ -1,9 +1,9 @@
 ---
-title: Displays
+title: دکھاتا ہے۔
 description:                                               ۔ﮟﯾﺩ ﻞﯿﮑﺸﺗ ﻮﮐ ﭦﺅﺁ ﮯﻟ ﺭﻭﺍ ﺯﺮﭩﯿﻧﺎﻣ
 ---
 
-`argvus-display` `argvus displayctl` ﺭﻭﺍ ﮯﮨ ﺎﺗﺮﮐ ﻢﮨﺍﺮﻓ Hyprland ﮟﯾﺮﮐ ﮧﻨﺋﺎﻌﻣ ﺎﮐ 
+`argvus-display` `argvus displayctl` ﺭﻭﺍ ﮯﮨ ﺎﺗﺮﮐ ﻢﮨﺍﺮﻓ Hyprland ﮟﯾﺮﮐ ﮧﻨﺋﺎﻌﻣ ﺎﮐ
 
 ```sh
 argvus displayctl --status
@@ -44,4 +44,4 @@ argvus displayctl --settings
 
                                                   ﮟﯿﮨ ﮯﺌﮔ ﮯﺋﺎﮭﮐﺩ ﻡﺎﻧ ﮯﮐ ﺮﭩﯿﻧﺎﻣ`--status` (typically `HDMI-1`, `DP-2`, `eDP-1`                                   ﺪﻌﺑ ﮯﮐ ﮯﻧﺮﮐ ﻝﺎﻤﻌﺘﺳﺍ .(ﮯﯿﻟ ﮯﮐ ﮦﺮﯿﻏﻭ ﺲﭘﺎﭨ ﭗﯿﻟ`--settings`GUI ۔ﮯﮨ ﺎﺗﺎﺟ ﻮﮨ ﮈﻮﻟ ﮦﺭﺎﺑﻭﺩ ﮯﯿﻟ ﮯﮐ ﮯﻧﺮﮐ ﻮﮔﻻ﻿ ﻮﮐ ﻥﺍ ﺩﻮﺨﺑ ﺩﻮﺧ ﻦﺸﯿﺳ ،ﮯﯿﻟ ﮯﮐ ﮯﻧﺮﮐ ﮞﺎ
 
-The helper also supports --set <monitor> <key> <value> and --apply-nwg. Generated monitor overrides are part of the ARGVUS configuration state; see [configuration files](/docs/reference/configuration-files/).
+مددگار --set <monitor> <key> <value> اور --apply-nwg کو بھی سپورٹ کرتا ہے۔ جنریٹڈ مانیٹر اوور رائیڈز ARGVUS کنفیگریشن سٹیٹ کا حصہ ہیں۔ دیکھیں [کنفیگریشن فائلز](/docs/reference/configuration-files/)۔

@@ -1,5 +1,5 @@
 ---
-title: Displays
+title: Exibições
 description: Configure monitores e layouts.
 ---
 

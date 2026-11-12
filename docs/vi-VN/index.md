@@ -1,5 +1,5 @@
 ---
-title: Displays
+title: Hiển thị
 description: Cấu hình các màn hình và bố cục.
 ---
 

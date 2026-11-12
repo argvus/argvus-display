@@ -10,7 +10,7 @@ argvus displayctl --list-modes <monitor>
 argvus displayctl --apply
 argvus displayctl --settings
 ```
-도우미는 또한 `--set <monitor> <key> <value>` 및 `--apply-nwg`를 지원합니다. 생성된 모니터 재정의는 ARGVUS 구성 상태의 일부입니다; [configuration files](/docs/reference/configuration-files/)]을 참조하십시오.
+도우미는 또한 `--set <monitor> <key> <value>` 및 `--apply-nwg`를 지원합니다. 생성된 모니터 재정의는 ARGVUS 구성 상태의 일부입니다; [configuration files](/docs/reference/configuration-files/)을 참조하십시오.
 
 제어 센터에서 **디스플레이**를 열거나 모니터를 검색하십시오. 사용 가능한 설정은 기능에 따라 다르며 해상도, 새로 고침 빈도, 배율, 위치, 방향, 기본 디스플레이, VRR 및 HDR을 포함할 수 있습니다. 모니터 모델이 일반 목록에 있다고 해서 설정이 지원되는 것으로 표시되지는 않습니다; 활성 합성기와 모니터 백엔드가 이를 보고해야 합니다.
 

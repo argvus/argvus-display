@@ -1,5 +1,5 @@
 ---
-title: Displays
+title: Menampilkan
 description: Konfigurasi monitor dan tata letak.
 ---
 

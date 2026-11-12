@@ -10,7 +10,7 @@ argvus displayctl --list-modes <monitor>
 argvus displayctl --apply
 argvus displayctl --settings
 ```
-L'assistant prend également en charge `--set <monitor> <key> <value>` et `--apply-nwg`. Les dépassements de moniteur générés font partie de l'état de configuration ARGVUS ; voir [fichiers de configuration](/docs/reference/configuration-files/)].
+L'assistant prend également en charge `--set <monitor> <key> <value>` et `--apply-nwg`. Les dépassements de moniteur générés font partie de l'état de configuration ARGVUS ; voir [fichiers de configuration](/docs/reference/configuration-files/).
 
 Dans le Centre de contrôle, ouvrez **Affichages** ou recherchez un moniteur. Les paramètres disponibles dépendent des capacités et peuvent inclure la résolution, le taux de rafraîchissement, l'échelle, la position, l'orientation, l'affichage principal, le VRR et le HDR. Un paramètre n'est pas affiché comme pris en charge simplement parce que le modèle de moniteur figure dans une liste générique ; le compositeur actif et le backend du moniteur doivent le rapporter.
 

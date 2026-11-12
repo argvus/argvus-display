@@ -1,5 +1,5 @@
 ---
-title: Displays
+title: Ekranlar
 description: Monitörleri ve düzenleri yapılandırın.
 ---
 

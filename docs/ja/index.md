@@ -10,7 +10,7 @@ argvus displayctl --list-modes <monitor>
 argvus displayctl --apply
 argvus displayctl --settings
 ```
-ヘルパーは`--set <monitor> <key> <value>`および`--apply-nwg`もサポートしています。生成されたモニターのオーバーライドはARGVUS構成状態の一部です。詳細は[configuration files](/docs/reference/configuration-files/)]を参照してください。
+ヘルパーは`--set <monitor> <key> <value>`および`--apply-nwg`もサポートしています。生成されたモニターのオーバーライドはARGVUS構成状態の一部です。詳細は[configuration files](/docs/reference/configuration-files/)を参照してください。
 
 コントロールセンターで**表示**を開くか、モニターを検索します。利用可能な設定は機能に依存し、解像度、リフレッシュレート、スケール、位置、向き、プライマリディスプレイ、VRR、およびHDRを含む場合があります。設定がサポートされていると表示されるのは、単にモニターモデルが一般的なリストに存在するためではなく、アクティブなコンポジターとモニターバックエンドがそれを報告する必要があります。
 

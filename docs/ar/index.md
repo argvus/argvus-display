@@ -1,5 +1,5 @@
 ---
-title: Displays
+title: يعرض
 description:                                                      .ﺕﺎﻄﻴﻄﺨﺘﻟﺍﻭ ﺕﺎﺷﺎﺸﻟﺍ ﺔﺌﻴﻬﺗ
 ---
 
@@ -44,4 +44,4 @@ argvus displayctl --settings
 
                                                   ﺔﻄﺳﺍﻮﺑ ﺕﺎﺷﺎﺸﻟﺍ ءﺎﻤﺳﺃ ﺽﺮﻋ ﻢﺘﻳ`--status` (typically `HDMI-1`, `DP-2`, `eDP-1`                                     ﻡﺍﺪﺨﺘﺳﻻ﻿ﺍ ﺪﻌﺑ .(ﻚﻟﺫ ﻰﻟﺇ ﺎﻣﻭ ،ﺏﻮﺘﺑﻼ﻿ﻟﺍ ﺓﺰﻬﺟﻷ﻿`--settings`.ﺎﻬﻘﻴﺒﻄﺘﻟ ﺎًﻴﺋﺎﻘﻠﺗ ﺔﺴﻠﺠﻟﺍ ﻞﻴﻤﺤﺗ ﺓﺩﺎﻋﺇ ﻢﺘﻳ ،ﺔﻴﻣﻮﺳﺮﻟﺍ ﻡﺪﺨﺘﺴﻤﻟﺍ ﺔﻬﺟﺍﻭ ﻡﺍﺪﺨﺘﺳﺎﺑ ﺕﺍﺮ
 
-The helper also supports --set <monitor> <key> <value> and --apply-nwg. Generated monitor overrides are part of the ARGVUS configuration state; see [configuration files](/docs/reference/configuration-files/).
+يدعم المساعد أيضًا --set <monitor> <key> <value> و--apply-nwg. تعد تجاوزات الشاشة التي تم إنشاؤها جزءًا من حالة التكوين ARGVUS؛ راجع [ملفات التكوين](/docs/reference/configuration-files/).

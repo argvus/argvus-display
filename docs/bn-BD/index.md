@@ -1,5 +1,5 @@
 ---
-title: Displays
+title: প্রদর্শন
 description: মনিটর এবং লেআউট কনফিগার করুন।
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Displays
+title: प्रदर्शित करता है
 description: मॉनिटर और लेआउट कॉन्फ़िगर करें।
 ---
 
